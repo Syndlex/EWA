@@ -3,6 +3,7 @@
 
 <head>
 <meta charset="UTF-8" />
+    <Title>Bäcker</Title>
 </head>
 
 <body>
@@ -14,6 +15,7 @@
 </nav>
     <section>
         <h1>Bestellte Pizzen</h1>
+        <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1" accept-charset="UTF-8">
             <table>
                 <tr>
                     <th>Artikel</th>
@@ -24,9 +26,9 @@
                 </tr>
                 <tr>
                     <td>Pizza Margherita</td>
-                    <td><input type="radio"/></td>   <!--center removen --> 
-                    <td><input type="radio"/></td>   <!--center removen --> 
-                    <td><input type="radio"/></td>   <!--center removen --> 
+                    <td><input type="radio" name="Pizza Margherita" value="Bestellt"/></td>   <!--center removen --> 
+                    <td><input type="radio"name="Pizza Margherita" value="im Ofen"/></td>   <!--center removen --> 
+                    <td><input type="radio"name="Pizza Margherita" value="Fertig"/></td>   <!--center removen --> 
                 </tr>
                 <tr>
                     <td>Pizza Funghi</td>
@@ -43,7 +45,9 @@
 
 
 
-            </table>  s
+            </table>  
+            <input type="submit" value="Aktuallisieren">
+        </form>
     </section>
 </body>
     
