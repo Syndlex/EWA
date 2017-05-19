@@ -1,0 +1,15 @@
+import 'color.css'
+
+:root {--main-color:dimgray;}
+:root {--second-color:lightgray;}
+:root {--highlight-color:gray;}
+
+
+th {background-color:var(--highlight-color)}
+tr:nth-child(even) {background-color: var(--main-color);border-collapse: collapse; }
+tr:nth-child(even) {background-color: var(--second-color);border-collapse: collapse; }
+tr:hover {background-color: var(--highlight-color);}
+
+nav { background-color: aqua}
+section { background-color: blue}
+article { background-color: chocolate}
