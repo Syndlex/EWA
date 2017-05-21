@@ -1,15 +1,70 @@
-import 'color.css'
+@import url('color.css');
+th {
+  background-color: var(--maindark-color);
+  color: white;
+}
 
-:root {--main-color:dimgray;}
-:root {--second-color:lightgray;}
-:root {--highlight-color:gray;}
+table {
+  border: none;
+  color: white;
+  border-style: none;
+}
 
+tr:nth-child(even) {
+  background-color: var(--main-color);
+  border-collapse: collapse;
+  border-width: 0;
+  border: none;
+  border-style: none;
+  border: none;
+  color: white;
+}
 
-th {background-color:var(--highlight-color)}
-tr:nth-child(even) {background-color: var(--main-color);border-collapse: collapse; }
-tr:nth-child(even) {background-color: var(--second-color);border-collapse: collapse; }
-tr:hover {background-color: var(--highlight-color);}
+tr:nth-child(odd) {
+  background-color: var(--mainlight-color);
+  border-collapse: collapse;
+  border-width: 0;
+  border: none;
+  border-style: none;
+  border: none;
+  color: white;
+}
 
-nav { background-color: aqua}
-section { background-color: blue}
-article { background-color: chocolate}
+tr:hover {
+  background-color: var(--highlight-color);
+}
+
+nav {
+  background-color: var(--mainlight-color);
+  float: left;
+}
+
+li:nth-child(even) {
+  background-color: var(--main-color);
+  border-collapse: collapse;
+  border-width: 0;
+  border: none;
+  border-style: none;
+  border: none;
+  color: white;
+}
+
+li:nth-child(odd) {
+  background-color: var(--mainlight-color);
+  border-collapse: collapse;
+  border-width: 0;
+  border: none;
+  border-style: none;
+  border: none;
+  color: white;
+}
+
+li:hover {
+  background-color: var(--highlight-color);
+}
+
+:MainBody {}
+
+:RightBody {
+  float: right;
+}

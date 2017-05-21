@@ -1,3 +1,6 @@
-:root {--main-color:dimgray;}
-:root {--second-color:lightgray;}
-:root {--highlight-color:gray;}
+:root {
+  --main-color: rgb(136, 14, 79);
+  --mainlight-color: rgb(188, 71, 123);
+  --maindark-color: rgb(86, 0, 39);
+  --highlight-color: rgb(100, 181, 246);;
+}
