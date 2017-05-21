@@ -1,6 +1,6 @@
 :root {
-  --main-color: rgb(136, 14, 79);
-  --mainlight-color: rgb(188, 71, 123);
-  --maindark-color: rgb(86, 0, 39);
+  --main-color: rgb(238, 238, 238);
+  --mainlight-color: rgb(255, 255, 255);
+  --maindark-color: rgb(188, 188, 188);
   --highlight-color: rgb(100, 181, 246);;
 }
