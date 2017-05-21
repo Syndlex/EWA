@@ -5,7 +5,6 @@ th {
 }
 
 table {
-  border: none;
   color: white;
   border-style: none;
 }
@@ -13,10 +12,7 @@ table {
 tr:nth-child(even) {
   background-color: var(--main-color);
   border-collapse: collapse;
-  border-width: 0;
-  border: none;
-  border-style: none;
-  border: none;
+  border: 0 none;
   color: white;
 }
 
@@ -24,8 +20,6 @@ tr:nth-child(odd) {
   background-color: var(--mainlight-color);
   border-collapse: collapse;
   border-width: 0;
-  border: none;
-  border-style: none;
   border: none;
   color: white;
 }
@@ -44,8 +38,6 @@ li:nth-child(even) {
   border-collapse: collapse;
   border-width: 0;
   border: none;
-  border-style: none;
-  border: none;
   color: white;
 }
 
@@ -54,8 +46,6 @@ li:nth-child(odd) {
   border-collapse: collapse;
   border-width: 0;
   border: none;
-  border-style: none;
-  border: none;
   color: white;
 }
 
@@ -63,8 +53,15 @@ li:hover {
   background-color: var(--highlight-color);
 }
 
-:MainBody {}
+.MainBody {
+margin-left: 15%;
+  width: 75%;
+  clear: both;
+  background-color black;
+}
 
-:RightBody {
+.RightBody {
   float: right;
+  width: 15%;
+
 }
