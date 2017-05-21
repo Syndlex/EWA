@@ -1,67 +1,91 @@
 @import url('color.css');
+
 th {
-  background-color: var(--maindark-color);
-  color: white;
+    background-color: var(--maindark-color);
+    color: white;
 }
 
 table {
-  color: white;
-  border-style: none;
+    color: white;
+    border-style: none;
 }
 
 tr:nth-child(even) {
-  background-color: var(--main-color);
-  border-collapse: collapse;
-  border: 0 none;
-  color: white;
+    background-color: var(--main-color);
+    border-collapse: collapse;
+    border: 0 none;
+    color: white;
 }
 
 tr:nth-child(odd) {
-  background-color: var(--mainlight-color);
-  border-collapse: collapse;
-  border-width: 0;
-  border: none;
-  color: white;
+    background-color: var(--mainlight-color);
+    border-collapse: collapse;
+    border-width: 0;
+    border: none;
+    color: white;
 }
 
 tr:hover {
-  background-color: var(--highlight-color);
+    background-color: var(--highlight-color);
 }
 
 nav {
-  background-color: var(--mainlight-color);
-  float: left;
+    background-color: var(--mainlight-color);
+    float: left;
+    width: 12%;
+    height: 20%;
+
+
+}
+
+h2.MainBody {
+    text-align: center;
+}
+
+ul {
+    display: block;
+    padding-right: 10%;
+    padding-left: 10%;
+
+}
+li{
+    list-style: none;
 }
 
 li:nth-child(even) {
-  background-color: var(--main-color);
-  border-collapse: collapse;
-  border-width: 0;
-  border: none;
-  color: white;
+    background-color: var(--main-color);
+    border-collapse: collapse;
+    color: white;
 }
 
 li:nth-child(odd) {
-  background-color: var(--mainlight-color);
-  border-collapse: collapse;
-  border-width: 0;
-  border: none;
-  color: white;
+    background-color: var(--mainlight-color);
+    border-collapse: collapse;
+    color: white;
 }
 
 li:hover {
-  background-color: var(--highlight-color);
+    background-color: var(--highlight-color);
 }
 
 .MainBody {
-margin-left: 15%;
-  width: 75%;
-  clear: both;
-  background-color black;
+
+    margin-left: 15%;
+    margin-right: 25%;
+    background-color: aqua;
+    display: block;
+
 }
 
 .RightBody {
-  float: right;
-  width: 15%;
+    float: right;
+    width: 20%;
+    display: block;
+    background-color: orangered;
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: chartreuse;
 }
