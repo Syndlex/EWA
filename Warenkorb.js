@@ -2,6 +2,7 @@
  * Created by Autz on 22.05.17.
  */
 function clickOnPizza(number) {
+    "use strict";
     var pizzaElement = document.getElementById(number);
     var warenkorb = document.getElementById("WarenKorb");
     var elementId = "WarenKorb"+number.toString();
@@ -43,7 +44,7 @@ var pizzaListe = [
     , "Pizza Salat, 4.50€"];
 
 function Init() {
-
+    "use strict";
     pizzaListe.forEach(function (value, i) {
         var split = value.split(',',2);
         var elementById = document.getElementById("BestellListe");
