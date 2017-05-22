@@ -2,11 +2,12 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css"/>
+    <script src="Warenkorb.js"></script>
     <meta charset="UTF-8"/>
     <Title>Bestellung</Title>
 </head>
 
-<body>
+<body onload="Init()">
 <nav>
     <ul class="Navigation">
         <li><a href="bestellung.html">Bestellung</a></li>
@@ -20,13 +21,15 @@
     <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1" accept-charset="UTF-8">
         <article>
             <h2>Warenkorb</h2>
-            <ul>
-                <li>Pizza zum mitnehmen</li>
-                <li>Pizza zum mitnehmen</li>
-                <li>Pizza zum mitnehmen</li>
+            <table id="WarenKorb">
+                <tr>
+                    <th></th>
+                   <th>Artikel</th>
+                   <th>Preis</th>
+                    <th>Menge</th>
+                </tr>
+            </table>
 
-
-            </ul>
         </article>
         <section>
             <h2>Auswahl</h2>
@@ -50,14 +53,14 @@
 </aside>
 <article class="MainBody">
     <h2>Bestellung</h2>
-    <ul>
-        <li>Pizza Prosciutto 4,50€</li>
-        <li>Pizza Salami 4,50€</li>
-        <li>Pizza mit alles 4,50€</li>
-        <li>Pizza ohne alles 4,50€</li>
-        <li>Pizza gerollt 4,50€</li>
-        <li>Pizza Salat 4,50€</li>
-    </ul>
+    <table id="BestellListe">
+
+        <tr>
+            <th></th>
+            <th>Artikel</th>
+            <th>Preis</th>
+            </tr>
+    </table>
 </article>
 
 </body>
