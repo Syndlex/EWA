@@ -5,24 +5,20 @@ function clickOnPizza(number) {
     "use strict";
     var pizzaElement = document.getElementById(number);
     var warenkorb = document.getElementById("WarenKorb");
-    var elementId = "WarenKorb"+number.toString();
+    var elementId = "WarenKorb" + number.toString();
     var elementById = document.getElementById(elementId);
 
-    if(warenkorb.contains(elementById)){
+    if (warenkorb.contains(elementById)) {
 
         var mengeChild = elementById.lastElementChild;
         var textNode = mengeChild.textContent;
         var Anzahl = parseInt(textNode);
-        console.log(Anzahl);
-        Anzahl =Anzahl +1;
-
+        Anzahl = Anzahl + 1;
         mengeChild.textContent = Anzahl;
-
     }
-    else
-    {
+    else {
         var newChild = pizzaElement.cloneNode(true);
-        newChild.setAttribute("onClick", "");
+        newChild.setAttribute("onClick", "clickOnWarenkorb(this)");
         var attribute = newChild.getAttribute("id");
         var value = "WarenKorb" + attribute.toString();
         newChild.setAttribute("id", value);
@@ -46,13 +42,13 @@ var pizzaListe = [
 function Init() {
     "use strict";
     pizzaListe.forEach(function (value, i) {
-        var split = value.split(',',2);
+        var split = value.split(',', 2);
         var elementById = document.getElementById("BestellListe");
         var tr = document.createElement("tr");
 
         var tdPic = document.createElement("td");
         var newPic = document.createElement("img");
-        newPic.setAttribute("src","Bilder/pizza_android.svg");
+        newPic.setAttribute("src", "Bilder/pizza_android.svg");
         tdPic.appendChild(newPic);
 
         var tdTitel = document.createElement("td");
@@ -73,4 +69,30 @@ function Init() {
         elementById.appendChild(tr);
     });
 
+}
+
+function clearWarenkorb() {
+
+    var elementId = document.getElementById("WarenKorb");
+    var rowCount = elementId.rows.length;
+    for (var i = rowCount - 1; i > 0; i--) {
+        elementId.deleteRow(i);
+    }
+}
+
+function clickOnWarenkorb(elementById) {
+    var mengeChild = elementById.lastElementChild;
+    var textNode = mengeChild.textContent;
+    var Anzahl = parseInt(textNode);
+    if (Anzahl > 1)
+    {
+        Anzahl = Anzahl - 1;
+        mengeChild.textContent = Anzahl;
+    }
+    else
+    {
+        elementById.remove();
+
+
+    }
 }
