@@ -25,6 +25,7 @@ function clickOnPizza(number) {
 
         var tdMenge = document.createElement("td");
         var Menge = document.createTextNode("1");
+
         tdMenge.appendChild(Menge);
         newChild.appendChild(tdMenge);
         warenkorb.appendChild(newChild);
@@ -58,6 +59,7 @@ function Init() {
         var tdPreis = document.createElement("td");
         var newPreis = document.createTextNode(split[1]);
         tdPreis.appendChild(newPreis);
+
 
 
         tr.setAttribute("id", i);
