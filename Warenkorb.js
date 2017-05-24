@@ -15,6 +15,13 @@ function clickOnPizza(number) {
         var Anzahl = parseInt(textNode);
         Anzahl = Anzahl + 1;
         mengeChild.textContent = Anzahl;
+        bestellMenge = mengeChild.textContent;
+        var parentNode = mengeChild.parentNode;
+        parentNode.children[3].setAttribute("value",bestellMenge);
+
+
+
+
     }
     else {
         var newChild = pizzaElement.cloneNode(true);
@@ -23,12 +30,23 @@ function clickOnPizza(number) {
         var value = "WarenKorb" + attribute.toString();
         newChild.setAttribute("id", value);
 
-        var tdMenge = document.createElement("td");
-        var Menge = document.createTextNode("1");
 
-        tdMenge.appendChild(Menge);
+        var formText = document.createElement("input");
+        formText.setAttribute("type", "hidden");
+        newChild.appendChild(formText);
+
+        var tdMenge = document.createElement("td");
         newChild.appendChild(tdMenge);
+        var Menge = document.createTextNode("1");
+        tdMenge.appendChild(Menge);
         warenkorb.appendChild(newChild);
+
+        var bestellMenge = Menge.textContent;
+        formText.setAttribute("value", bestellMenge);
+
+        var pizza = newChild.children[1].textContent;
+        formText.setAttribute("name", pizza);
+
     }
 }
 
@@ -61,7 +79,6 @@ function Init() {
         tdPreis.appendChild(newPreis);
 
 
-
         tr.setAttribute("id", i);
         var value2 = "clickOnPizza(" + i + ")";
         tr.setAttribute("onclick", value2);
@@ -86,13 +103,11 @@ function clickOnWarenkorb(elementById) {
     var mengeChild = elementById.lastElementChild;
     var textNode = mengeChild.textContent;
     var Anzahl = parseInt(textNode);
-    if (Anzahl > 1)
-    {
+    if (Anzahl > 1) {
         Anzahl = Anzahl - 1;
         mengeChild.textContent = Anzahl;
     }
-    else
-    {
+    else {
         elementById.remove();
 
 
