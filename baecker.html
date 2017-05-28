@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="style.css"/>
+    <script src="RadioNotify.js"></script>
     <meta charset="UTF-8"/>
     <Title>Bäcker</Title>
 </head>
@@ -30,35 +31,25 @@
             </tr>
             <tr>
                 <td>Pizza Margherita</td>
-                <td><input type="radio" name="Pizza Margherita" value="Bestellt"/></td>
-                <!--center removen -->
-                <td><input type="radio" name="Pizza Margherita" value="im Ofen"/></td>
-                <!--center removen -->
-                <td><input type="radio" name="Pizza Margherita" value="Fertig"/></td>
-                <!--center removen -->
+                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
             </tr>
             <tr>
                 <td>Pizza Funghi</td>
-                <td><input type="radio"/></td>
-                <!--center removen -->
-                <td><input type="radio"/></td>
-                <!--center removen -->
-                <td><input type="radio"/></td>
-                <!--center removen -->
+                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
             </tr>
             <tr>
                 <td>Pizza Salami</td>
-                <td><input type="radio"/></td>
-                <!--center removen -->
-                <td><input type="radio"/></td>
-                <!--center removen -->
-                <td><input type="radio"/></td>
-                <!--center removen -->
+                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
+                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
             </tr>
 
 
         </table>
-        <input type="submit" value="Aktuallisieren">
     </form>
 </section>
 </body>
