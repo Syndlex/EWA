@@ -15,11 +15,11 @@ function clickOnPizza(number) {
         var Anzahl = parseInt(textNode);
         Anzahl = Anzahl + 1;
         mengeChild.textContent = Anzahl;
+
+
         bestellMenge = mengeChild.textContent;
         var parentNode = mengeChild.parentNode;
-        parentNode.children[3].setAttribute("value",bestellMenge);
-
-
+        parentNode.children[3].setAttribute("value", bestellMenge);
 
 
     }
@@ -48,6 +48,8 @@ function clickOnPizza(number) {
         formText.setAttribute("name", pizza);
 
     }
+    calcTotalPrice();
+
 }
 
 var pizzaListe = [
@@ -60,6 +62,7 @@ var pizzaListe = [
 
 function Init() {
     "use strict";
+
     pizzaListe.forEach(function (value, i) {
         var split = value.split(',', 2);
         var elementById = document.getElementById("BestellListe");
@@ -86,6 +89,7 @@ function Init() {
         tr.appendChild(tdTitel);
         tr.appendChild(tdPreis);
         elementById.appendChild(tr);
+
     });
 
 }
@@ -97,6 +101,7 @@ function clearWarenkorb() {
     for (var i = rowCount - 1; i > 0; i--) {
         elementId.deleteRow(i);
     }
+    calcTotalPrice();
 }
 
 function clickOnWarenkorb(elementById) {
@@ -112,4 +117,34 @@ function clickOnWarenkorb(elementById) {
 
 
     }
+    calcTotalPrice();
+}
+
+function calcTotalPrice() {
+    var warenkorb = document.getElementById("WarenKorb");
+    var gesammtpreis=0;
+
+
+    for (var i = 1, row; row = warenkorb.rows[i]; i++) {
+        var mengeData = row.lastElementChild;
+        var mengeNode = mengeData.textContent;
+        var anzahl = parseFloat(mengeNode).toFixed(2);
+
+        var preisData = row.children[2];
+        var preisNode = preisData.textContent;
+        var preisString = preisNode.substr(0,preisNode.length -1);
+        var preis = parseFloat(preisString).toFixed(2);
+        console.log(preis);
+
+        var pizzaPreis = anzahl*preis;
+
+        gesammtpreis=gesammtpreis+pizzaPreis;
+
+
+    }
+    gesammtpreis = (gesammtpreis).toFixed(2);
+    var spanner = document.getElementById("spanner");
+    spanner.textContent = gesammtpreis+ "€";
+
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="style.css"/>
     <script src="Warenkorb.js"></script>
@@ -21,7 +21,7 @@
     <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1">
         <article>
             <h2>Warenkorb</h2>
-            <table id="WarenKorb">
+            <table id="WarenKorb" on>
                 <tr>
                     <th></th>
                     <th>Artikel</th>
@@ -29,15 +29,23 @@
                     <th>Menge</th>
                 </tr>
             </table>
+            <br>
+            <p>Gesammtpreis: <span id="spanner"> </span></p>
         </article>
+        <br>
         <input type="button" value="Alle löschen" onclick="clearWarenkorb()"/>
         <section>
             <h2>Lieferinformation</h2>
-            <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname" required="required" value="TestVorname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Nachname" name="Nachname" required="required" value="TestNachname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Anschrift" name="Anschrift" required="required" value="TestAnschrift"/>
-            <input type="text" size="30" maxlength="40" placeholder="Telefonnummer" name="Telefonnummer" required="required" value="Test0815"/>
-            <input type="text" size="30" maxlength="40" placeholder="E-Mail" name="E-Mail" required="required" value="Test@E.Mail"/>
+            <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"
+                   required="required" value="TestVorname"/>
+            <input type="text" size="30" maxlength="40" placeholder="Nachname" name="Nachname" required="required"
+                   value="TestNachname"/>
+            <input type="text" size="30" maxlength="40" placeholder="Anschrift" name="Anschrift" required="required"
+                   value="TestAnschrift"/>
+            <input type="text" size="30" maxlength="40" placeholder="Telefonnummer" name="Telefonnummer"
+                   required="required" value="Test0815"/>
+            <input type="text" size="30" maxlength="40" placeholder="E-Mail" name="E-Mail" required="required"
+                   value="Test@E.Mail"/>
             <input type="submit" value="Bestellung abschicken"/>
         </section>
     </form>
