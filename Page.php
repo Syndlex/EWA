@@ -44,9 +44,10 @@ abstract class Page
      * @param string $headline $headline is the text to be used as title of the page
      *
      * @param string $script
+     * @param string $onload
      * @return none
      */
-    protected function generatePageHeader($headline = "", $script = "")
+    protected function generatePageHeader($headline = "", $script = "", $onload = "")
     {
 
         $headline = htmlspecialchars($headline);
@@ -58,7 +59,7 @@ abstract class Page
         echo "<script src=\"$script\"></script>";
         echo "</head>";
 
-        echo "<body>";
+        echo "<body onload=$onload>";
 
         echo "<nav>";
         echo "<ul class=\"Navigation\">";

@@ -131,7 +131,7 @@ return null; //Idea möchte irgendwas returned bekommen
      */
     protected function generateView()
     {
-        $this->generatePageHeader('Bestellung', "Warenkorb.js");
+        $this->generatePageHeader('Bestellung', "Warenkorb.js", "Init()");
         $this->getViewData();
         // to do: call generateView() for all members
         // to do: output view of this page
