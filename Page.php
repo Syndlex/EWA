@@ -1,33 +1,5 @@
 <?php // UTF-8 marker äöüÄÖÜß€
-/**
- * Class Page for the exercises of the EWA lecture
- * Demonstrates use of PHP including class and OO.
- * Implements Zend coding standards.
- * Generate documentation with Doxygen or phpdoc
- *
- * PHP Version 5
- *
- * @category File
- * @package  Pizzaservice
- * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
- * @author   Ralf Hahn, <ralf.hahn@h-da.de>
- * @license  http://www.h-da.de  none
- * @Release  1.2
- * @link     http://www.fbi.h-da.de
- */
 
-/**
- * This abstract class is a common base class for all
- * HTML-pages to be created.
- * It manages access to the database and provides operations
- * for outputting header and footer of a page.
- * Specific pages have to inherit from that class.
- * Each inherited class can use these operations for accessing the db
- * and for creating the generic parts of a HTML-page.
- *
- * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
- * @author   Ralf Hahn, <ralf.hahn@h-da.de>
- */
 abstract class Page
 {
     // --- ATTRIBUTES ---
@@ -75,32 +47,36 @@ abstract class Page
      */
     protected function generatePageHeader($headline = "")
     {
+        $Klass = "warenkorb";//Todo put this in header.
         $headline = htmlspecialchars($headline);
+
         header("Content-type: text/html; charset=UTF-8");
         echo "<head>";
-        echo <<< EOT
- <link rel="stylesheet" href="style.css"/>
-<script src="Warenkorb.js"></script>
-<Title>Bestellung</Title>
-EOT;
-        echo("</head > ");
+        echo(headString());
+        echo "</head>";
 
+        echo "<body>";
 
-        echo("<body > ");
-        echo <<< EOT
-<nav>
-    <ul class="Navigation">
-        <li><a href="bestellung . html">Bestellung</a></li>
-        <li><a href="kunde . html">Kunde</a></li>
-        <li><a href="baecker . html">Bäcker</a></li>
-        <li><a href="fahrer . html">Fahrer</a></li>
-    </ul>
+        echo "<nav>";
+        echo(navString());
+        echo "</nav>";
+    }
 
-</nav>
-EOT;
+    protected function headString()
+    {
+        return '<link rel="stylesheet" href="style.css"/>
+        <script src="$Klass.js"></script>
+        <Title>Bestellung</Title>';
+    }
 
-        // to do: output common beginning of HTML code
-        // including the individual headline
+    protected function navString()
+    {
+        return '<ul class="Navigation" >
+    <li ><a href = "bestellung . html" > Bestellung</a ></li >
+    <li ><a href = "kunde . html" > Kunde</a ></li >
+    <li ><a href = "baecker . html" > Bäcker</a ></li >
+    <li ><a href = "fahrer . html" > Fahrer</a ></li >
+</ul >';
     }
 
     /**
@@ -110,7 +86,8 @@ EOT;
      */
     protected function generatePageFooter()
     {
-        echo(" </body > ");
+        echo"</body>";
+        echo"</html>";
         // to do: output common end of HTML code
     }
 
