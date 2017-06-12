@@ -41,29 +41,31 @@ abstract class Page
      * Takes care that all strings passed from outside
      * are converted to safe HTML by htmlspecialchars.
      *
-     * @param $headline $headline is the text to be used as title of the page
+     * @param string $headline $headline is the text to be used as title of the page
      *
+     * @param string $script
      * @return none
      */
-    protected function generatePageHeader($headline = "")
+    protected function generatePageHeader($headline = "", $script = "")
     {
-        $Klass = "warenkorb";//Todo put this in header.
+
         $headline = htmlspecialchars($headline);
 
         header("Content-type: text/html; charset=UTF-8");
         echo "<head>";
         echo "<link rel=\"stylesheet\" href=\"style.css\"/>";
-        //echo "<script src=\"$Klass.js\"></script>";
+        echo "<title>$headline</title>";
+        echo "<script src=\"$script\"></script>";
         echo "</head>";
 
         echo "<body>";
 
         echo "<nav>";
         echo "<ul class=\"Navigation\">";
-        echo "<li ><a href = \"bestellung.html\" > Bestellung</a ></li >";
-        echo "<li ><a href = \"kunde.html\" > Kunde</a ></li >";
-        echo "<li ><a href = \"baecker.html\" > Bäcker</a ></li >";
-        echo "<li ><a href = \"fahrer.html\" > Fahrer</a ></li >";
+        echo "<li ><a href = \"bestellung.php\" > Bestellung</a ></li >";
+        echo "<li ><a href = \"kunde.php\" > Kunde</a ></li >";
+        echo "<li ><a href = \"baecker.php\" > Bäcker</a ></li >";
+        echo "<li ><a href = \"fahrer.php\" > Fahrer</a ></li >";
         echo "</ul >";
         echo "</nav>";
     }
