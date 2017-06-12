@@ -52,32 +52,22 @@ abstract class Page
 
         header("Content-type: text/html; charset=UTF-8");
         echo "<head>";
-        echo(headString());
+        echo "<link rel=\"stylesheet\" href=\"style.css\"/>";
+        //echo "<script src=\"$Klass.js\"></script>";
         echo "</head>";
 
         echo "<body>";
 
         echo "<nav>";
-        echo(navString());
+        echo "<ul class=\"Navigation\">";
+        echo "<li ><a href = \"bestellung.html\" > Bestellung</a ></li >";
+        echo "<li ><a href = \"kunde.html\" > Kunde</a ></li >";
+        echo "<li ><a href = \"baecker.html\" > Bäcker</a ></li >";
+        echo "<li ><a href = \"fahrer.html\" > Fahrer</a ></li >";
+        echo "</ul >";
         echo "</nav>";
     }
 
-    protected function headString()
-    {
-        return '<link rel="stylesheet" href="style.css"/>
-        <script src="$Klass.js"></script>
-        <Title>Bestellung</Title>';
-    }
-
-    protected function navString()
-    {
-        return '<ul class="Navigation" >
-    <li ><a href = "bestellung . html" > Bestellung</a ></li >
-    <li ><a href = "kunde . html" > Kunde</a ></li >
-    <li ><a href = "baecker . html" > Bäcker</a ></li >
-    <li ><a href = "fahrer . html" > Fahrer</a ></li >
-</ul >';
-    }
 
     /**
      * Outputs the end of the HTML-file i.e. /body etc.
