@@ -123,7 +123,6 @@ class PageTemplate extends Page
             $page = new PageTemplate();
             $page->processReceivedData();
             $page->generateView();
-            echo "Test";
         }
         catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");

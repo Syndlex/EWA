@@ -18,6 +18,8 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once './Page.php';
+include "bestellungBlock.php";
+include "warenkorbBlock.php";
 
 /**
  * This is a template for top level classes, which represent
@@ -70,54 +72,7 @@ class Bestellung extends Page
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
-        $test = <<< EOD
-        <aside class="RightBody">
-    <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1">
-        <article>
-            <h2>Warenkorb</h2>
-            <table id="WarenKorb" on>
-                <tr>
-                    <th></th>
-                    <th>Artikel</th>
-                    <th>Preis</th>
-                    <th>Menge</th>
-                </tr>
-            </table>
-            <br>
-            <p>Gesammtpreis: <span id="spanner"> </span></p>
-        </article>
-        <br>
-        <input type="button" value="Alle löschen" onclick="clearWarenkorb()"/>
-        <section>
-            <h2>Lieferinformation</h2>
-            <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"
-                   required="required" value="TestVorname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Nachname" name="Nachname" required="required"
-                   value="TestNachname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Anschrift" name="Anschrift" required="required"
-                   value="TestAnschrift"/>
-            <input type="text" size="30" maxlength="40" placeholder="Telefonnummer" name="Telefonnummer"
-                   required="required" value="Test0815"/>
-            <input type="text" size="30" maxlength="40" placeholder="E-Mail" name="E-Mail" required="required"
-                   value="Test@E.Mail"/>
-            <input type="submit" value="Bestellung abschicken"/>
-        </section>
-    </form>
-</aside>
-<article class="MainBody">
-    <h2>Bestellung</h2>
-    <table id="BestellListe">
-        <tr>
-            <th></th>
-            <th>Artikel</th>
-            <th>Preis</th>
-        </tr>
-    </table>
-</article>
 
-EOD;
-        echo $test;
-return null; //Idea möchte irgendwas returned bekommen
     }
 
     /**
@@ -131,8 +86,12 @@ return null; //Idea möchte irgendwas returned bekommen
      */
     protected function generateView()
     {
-        $this->generatePageHeader('Bestellung', "Warenkorb.js", "Init()");
         $this->getViewData();
+        $this->generatePageHeader('Bestellung', "Warenkorb.js", "Init()");
+        $bestellungBlock = new bestellungBlock();
+        $bestellungBlock->generateView();
+        $warenkorbBlock = new warenkorbBlock();
+        $warenkorbBlock->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
         $this->generatePageFooter();
@@ -171,7 +130,6 @@ return null; //Idea möchte irgendwas returned bekommen
             $page = new Bestellung();
             $page->processReceivedData();
             $page->generateView();
-            echo "Test";
         }
         catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");
