@@ -18,6 +18,7 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once "Page.php";
+include "bestelltePizzenBlock.php";
 
 /**
  * This is a template for top level classes, which represent
@@ -70,44 +71,6 @@ class Baecker extends Page
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
-$test = <<<EOT
-<section class="MainBody">
-    <h1>Bestellte Pizzen</h1>
-    <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1" accept-charset="UTF-8">
-        <table>
-            <tr>
-                <th>Artikel</th>
-                <th>bestellt</th>
-                <th>im Ofen</th>
-                <th>fertig</th>
-
-            </tr>
-            <tr>
-                <td>Pizza Margherita</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-            <tr>
-                <td>Pizza Funghi</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-            <tr>
-                <td>Pizza Salami</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-
-
-        </table>
-    </form>
-</section>
-EOT;
-echo $test;
-return null; //Idea möchte das so
     }
 
     /**
@@ -121,8 +84,10 @@ return null; //Idea möchte das so
      */
     protected function generateView()
     {
-        $this->generatePageHeader('Bäcker', 'RadioNotify.js');
         $this->getViewData();
+        $this->generatePageHeader('Bäcker', 'RadioNotify.js');
+        $pizzenBlock = new bestelltePizzenBlock();
+        $pizzenBlock->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
         $this->generatePageFooter();
@@ -161,7 +126,6 @@ return null; //Idea möchte das so
             $page = new Baecker();
             $page->processReceivedData();
             $page->generateView();
-            echo "Test";
         }
         catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");

@@ -18,7 +18,7 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once './Page.php';
-
+include "fertigePizzenBlock.php";
 /**
  * This is a template for top level classes, which represent
  * a complete web page and which are called directly by the user.
@@ -70,48 +70,8 @@ class Fahrer extends Page
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
-        $test = <<< EOD
-<section class="MainBody">
-    <h1>Fertige Pizzen</h1>
-    <table>
-        <tr>
-            <th>Kunde</th>
-            <th>fertig</th>
-            <th>unterwegs</th>
-            <th>geliefert</th>
-            <th>Bestellung</th>
-            <th>Endpreis</th>
 
-        </tr>
-        <tr>
-            <td>Fritz Mayer</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
-            <td>26,50€</td>
-        </tr>
-        <tr>
-            <td>Hans Müller</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
-            <td>26,50€</td>
-        </tr>
-        <tr>
-            <td>Gertrude Kaztea</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Salami <br/>Pizza Rukola</td>
-            <td>26,50€</td>
-        </tr>
 
-    </table>
-</section>
-EOD;
-        echo "$test";
 
     }
 
@@ -126,8 +86,10 @@ EOD;
      */
     protected function generateView()
     {
-        $this->generatePageHeader('Fahrer', "RadioNotify.js");
         $this->getViewData();
+        $this->generatePageHeader('Fahrer', "RadioNotify.js");
+        $lieferstand = new fertigePizzenBlock();
+        $lieferstand->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
         $this->generatePageFooter();
@@ -166,7 +128,6 @@ EOD;
             $page = new Fahrer();
             $page->processReceivedData();
             $page->generateView();
-            echo "Test";
         }
         catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");

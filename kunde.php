@@ -18,6 +18,7 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once './Page.php';
+include "lieferstandBlock.php";
 
 /**
  * This is a template for top level classes, which represent
@@ -69,38 +70,7 @@ class Kunde extends Page
      */
     protected function getViewData()
     {
-        $test = <<< EOD
-<section class="MainBody">
-    <h1>Lieferstand</h1>
-    <table>
-        <tr>
-            <th>Artikel</th>
-            <th>im Ofen</th>
-            <th>fertig</th>
-            <th>unterwegs</th>
-        </tr>
-        <tr>
-            <td>Pizza Margherita</td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-        </tr>
-        <tr>
-            <td>Pizza Funghi</td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-        </tr>
-        <tr>
-            <td>Pizza Salami</td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-        </tr>
-    </table>
-</section>
-EOD;
-    echo "$test";
+
         // to do: fetch data for this view from the database
     }
 
@@ -115,8 +85,10 @@ EOD;
      */
     protected function generateView()
     {
-        $this->generatePageHeader('Kunde');
         $this->getViewData();
+        $this->generatePageHeader('Kunde');
+        $lieferstand = new lieferstandBlock();
+        $lieferstand ->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
         $this->generatePageFooter();
@@ -155,7 +127,6 @@ EOD;
             $page = new Kunde();
             $page->processReceivedData();
             $page->generateView();
-            echo "Test";
         }
         catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");
