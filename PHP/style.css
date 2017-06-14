@@ -79,7 +79,7 @@ nav li:hover {
 }
 
 li {
-    list-style: inside url("Bilder/pizza_android.svg");
+    list-style: inside url("../Bilder/pizza_android.svg");
 
 }
 

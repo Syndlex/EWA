@@ -70,7 +70,7 @@ function Init() {
 
         var tdPic = document.createElement("td");
         var newPic = document.createElement("img");
-        newPic.setAttribute("src", "Bilder/pizza_android.svg");
+        newPic.setAttribute("src", "../Bilder/pizza_android.svg");
         tdPic.appendChild(newPic);
 
         var tdTitel = document.createElement("td");

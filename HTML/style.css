@@ -119,8 +119,9 @@ li:hover {
 
 .RightBody {
     float: right;
-    max-height: 100%;
+
     width: 30%;
+
     height: 99.8%;
     display: block;
     background-color: var(--mainlight-color);
@@ -129,9 +130,9 @@ li:hover {
 
 }
 
+
 .RightBody section {
     width: 100%;
-
     align-content: center;
 
 }
@@ -157,7 +158,6 @@ li a {
 
 html, body {
     background-color: rgb(250, 250, 250);
-
 
 }
 

@@ -54,7 +54,7 @@ abstract class Page
 
         header("Content-type: text/html; charset=UTF-8");
         echo "<head>";
-        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css?version=2\"/>";
+        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>";
         echo "<title>$headline</title>";
         echo "<script src=\"$script\"></script>";
         echo "</head>";
