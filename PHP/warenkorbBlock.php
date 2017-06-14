@@ -91,7 +91,7 @@ class warenkorbBlock        // to do: change name of class
                 </tr>
             </table>
             <br>
-            <p>Gesammtpreis: <span id="spanner"> </span></p>
+            <p>Gesamtpreis: <span id="spanner"> </span></p>
         </article>
         <br>
         <input type="button" value="Alle löschen" onclick="clearWarenkorb()"/>

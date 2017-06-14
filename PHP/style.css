@@ -1,5 +1,13 @@
 @import url('color.css');
+html {
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+}
 
+body {
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+}
 th {
     background-color: var(--maindark-color);
     color: black;
@@ -102,8 +110,8 @@ li:hover {
 .MainBody {
     max-height: 100%;
     margin-left: 15%;
-
     width: 50%;
+
     background-color: var(--mainlight-color);
     display: block;
     padding-left: 2%;
@@ -113,13 +121,14 @@ li:hover {
     border-left: solid 1px var(--main-color);
     border-right: solid 1px var(--main-color);
     border-bottom: solid 1px var(--main-color);
-    position:absolute;
+    position: absolute;
 
 }
 
 .RightBody {
-    float: right;
+
     width: 30%;
+    float: right;
     height: 99.8%;
     display: block;
     background-color: var(--mainlight-color);
@@ -130,7 +139,6 @@ li:hover {
 
 .RightBody section {
     width: 100%;
-
     align-content: center;
 
 }
@@ -154,13 +162,8 @@ li a {
     text-decoration: none;
 }
 
-html, body {
-    background-color: rgb(250, 250, 250);
-
-
-}
-
 * {
     margin: 0;
     padding: 0;
+
 }

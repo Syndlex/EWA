@@ -90,7 +90,9 @@ function Init() {
         tr.appendChild(tdPreis);
         elementById.appendChild(tr);
 
+
     });
+    calcTotalPrice();
 
 }
 
@@ -122,7 +124,7 @@ function clickOnWarenkorb(elementById) {
 
 function calcTotalPrice() {
     var warenkorb = document.getElementById("WarenKorb");
-    var gesammtpreis=0;
+    var gesammtpreis = 0;
 
 
     for (var i = 1, row; row = warenkorb.rows[i]; i++) {
@@ -132,19 +134,19 @@ function calcTotalPrice() {
 
         var preisData = row.children[2];
         var preisNode = preisData.textContent;
-        var preisString = preisNode.substr(0,preisNode.length -1);
+        var preisString = preisNode.substr(0, preisNode.length - 1);
         var preis = parseFloat(preisString).toFixed(2);
         console.log(preis);
 
-        var pizzaPreis = anzahl*preis;
+        var pizzaPreis = anzahl * preis;
 
-        gesammtpreis=gesammtpreis+pizzaPreis;
+        gesammtpreis = gesammtpreis + pizzaPreis;
 
 
     }
     gesammtpreis = (gesammtpreis).toFixed(2);
     var spanner = document.getElementById("spanner");
-    spanner.textContent = gesammtpreis+ "€";
+    spanner.textContent = gesammtpreis + "€";
 
 
 }

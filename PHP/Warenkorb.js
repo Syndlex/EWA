@@ -91,6 +91,7 @@ function Init() {
         elementById.appendChild(tr);
 
     });
+    calcTotalPrice();
 
 }
 
