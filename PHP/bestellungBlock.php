@@ -37,6 +37,8 @@ class bestellungBlock        // to do: change name of class
      */
     protected $_database = null;
 
+
+
     // to do: declare reference variables for members
     // representing substructures/blocks
 
@@ -50,7 +52,7 @@ class bestellungBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct($database) //hier übergabe $database
+    public function __construct(mysqli $database) //hier übergabe $database
     {
         $this->_database = $database;
 
@@ -66,9 +68,9 @@ class bestellungBlock        // to do: change name of class
      */
     protected function getViewData()
     {
-        $query = "Select * FROM Pizza";
-        $this->_database->query($query);
 
+
+       // $this->_liste=$pizzaListe->fetch_array() as list;
 
         // to do: fetch data for this view from the database
     }
@@ -93,11 +95,17 @@ class bestellungBlock        // to do: change name of class
             <th></th>
             <th>Artikel</th>
             <th>Preis</th>
-        </tr>
-    </table>
-</article>
-
+        </tr>        
 EOD;
+
+        $query = "Select * FROM Pizza";
+        $pizzaListe= $this->_database->query($query);
+       while($pizzaListe= $pizzaListe->fetch_assoc())
+       {
+
+       }
+        echo "</table></article>";
+
         /*if ($id) {
             $id = "id=\"$id\"";
         }

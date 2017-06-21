@@ -17,7 +17,7 @@
  */
 
 // to do: change name 'PageTemplate' throughout this file
-require_once './Page.php';
+require_once 'Page.php';
 include "bestellungBlock.php";
 include "warenkorbBlock.php";
 
