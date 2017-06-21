@@ -25,6 +25,8 @@
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
+
+
 class bestellungBlock        // to do: change name of class
 {
     // --- ATTRIBUTES ---
@@ -48,9 +50,11 @@ class bestellungBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct() //hier übergabe $database
+    public function __construct($database) //hier übergabe $database
     {
-        $this->_database = null; //auf mysql dann ändern
+        $this->_database = $database;
+
+
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -62,6 +66,10 @@ class bestellungBlock        // to do: change name of class
      */
     protected function getViewData()
     {
+        $query = "Select * FROM Pizza";
+        $this->_database->query($query);
+
+
         // to do: fetch data for this view from the database
     }
 

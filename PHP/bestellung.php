@@ -17,7 +17,7 @@
  */
 
 // to do: change name 'PageTemplate' throughout this file
-require_once 'Page.php';
+require_once './Page.php';
 include "bestellungBlock.php";
 include "warenkorbBlock.php";
 
@@ -43,11 +43,13 @@ class Bestellung extends Page
      * Calls the constructor of the parent i.e. page class.
      * So the database connection is established.
      *
-     * @return none
+     *
      */
     protected function __construct()
     {
         parent::__construct();
+
+
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -71,6 +73,7 @@ class Bestellung extends Page
      */
     protected function getViewData()
     {
+
         // to do: fetch data for this view from the database
 
     }
@@ -88,9 +91,9 @@ class Bestellung extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Bestellung', "Warenkorb.js", "Init()");
-        $bestellungBlock = new bestellungBlock();
+        $bestellungBlock = new bestellungBlock($this->_database);
         $bestellungBlock->generateView();
-        $warenkorbBlock = new warenkorbBlock();
+        $warenkorbBlock = new warenkorbBlock($this->_database);
         $warenkorbBlock->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page

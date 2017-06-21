@@ -20,6 +20,7 @@
 require_once "Page.php";
 include "bestelltePizzenBlock.php";
 
+
 /**
  * This is a template for top level classes, which represent
  * a complete web page and which are called directly by the user.

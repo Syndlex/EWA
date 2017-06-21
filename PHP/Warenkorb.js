@@ -146,6 +146,8 @@ function calcTotalPrice() {
     gesammtpreis = (gesammtpreis).toFixed(2);
     var spanner = document.getElementById("spanner");
     spanner.textContent = gesammtpreis+ "€";
+    var endpreis = document.getElementById("Endpreis");
+    endpreis.setAttribute("value",gesammtpreis+"€");
 
 
 }

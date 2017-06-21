@@ -17,8 +17,9 @@
  */
 
 // to do: change name 'PageTemplate' throughout this file
-require_once './Page.php';
+require_once 'Page.php';
 include "lieferstandBlock.php";
+include "warenkorbBlock.php";
 
 /**
  * This is a template for top level classes, which represent
@@ -78,12 +79,11 @@ class Kunde extends Page
         $Nachname = htmlspecialchars($_GET["Nachname"]);
         $Anschrift = htmlspecialchars($_GET["Anschrift"]);
         $Telefonnummer= htmlspecialchars($_GET["Telefonnummer"]);
-        $EMail= htmlspecialchars($_GET["E-Mail"]);
+        $Mail= htmlspecialchars($_GET["E-Mail"]);
 
 
         $query = "insert into Kunde (Vorname,Name,Anschrift,Telefonnummer,Mail)
-VALUES ('$Vorname','$Nachname','$Anschrift','$Telefonnummer','$EMail')";
-
+                  VALUES ('$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail')";
         $this->_database->query($query);
         $this->_database->commit();
 

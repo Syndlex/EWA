@@ -48,9 +48,9 @@ class warenkorbBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct() //übergabeparameter $database
+    public function __construct($database) //übergabeparameter $database
     {
-        $this->_database = null; //datenbank für warenkorb eintragen
+        $this->_database = $database; //datenbank für warenkorb eintragen
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -105,7 +105,9 @@ class warenkorbBlock        // to do: change name of class
                 </tr>
             </table>
             <br>
-            <p>Gesamtpreis: <span id="spanner"> </span></p>
+            <p>Gesamtpreis: <span id="spanner" > </span></p>
+            <input type ="hidden" id="Endpreis" name="Gesamtpreis" value="0.00"/>
+            
         </article>
         <br>
         <input type="button" value="Alle löschen" onclick="clearWarenkorb()"/>
@@ -114,7 +116,7 @@ class warenkorbBlock        // to do: change name of class
     </form>
 </aside>
 EOD;
-
+        //
         /* if ($id) {
              $id = "id=\"$id\"";
          }
