@@ -79,7 +79,21 @@ class warenkorbBlock        // to do: change name of class
         $this->getViewData();
         echo <<<EOD
         <aside class="RightBody">
-    <form action="https://www.fbi.h-da.de/cgi-bin/Echo.pl" method="get" id="form1">
+    <form action="Kunde.php" method="get" id="form1"> 
+    <section>
+            <h2>Lieferinformation</h2>
+            <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"
+                   required="required" value="TestVorname"/>
+            <input type="text" size="30" maxlength="40" placeholder="Nachname" name="Nachname" required="required"
+                   value="TestNachname"/>
+            <input type="text" size="30" maxlength="40" placeholder="Anschrift" name="Anschrift" required="required"
+                   value="TestAnschrift"/>
+            <input type="text" size="30" maxlength="40" placeholder="Telefonnummer" name="Telefonnummer"
+                   required="required" value="Test0815"/>
+            <input type="text" size="30" maxlength="40" placeholder="E-Mail" name="E-Mail" required="required"
+                   value="Test@E.Mail"/>
+            
+        </section>
         <article>
             <h2>Warenkorb</h2>
             <table id="WarenKorb" on>
@@ -95,20 +109,8 @@ class warenkorbBlock        // to do: change name of class
         </article>
         <br>
         <input type="button" value="Alle löschen" onclick="clearWarenkorb()"/>
-        <section>
-            <h2>Lieferinformation</h2>
-            <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"
-                   required="required" value="TestVorname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Nachname" name="Nachname" required="required"
-                   value="TestNachname"/>
-            <input type="text" size="30" maxlength="40" placeholder="Anschrift" name="Anschrift" required="required"
-                   value="TestAnschrift"/>
-            <input type="text" size="30" maxlength="40" placeholder="Telefonnummer" name="Telefonnummer"
-                   required="required" value="Test0815"/>
-            <input type="text" size="30" maxlength="40" placeholder="E-Mail" name="E-Mail" required="required"
-                   value="Test@E.Mail"/>
-            <input type="submit" value="Bestellung abschicken"/>
-        </section>
+        <input type="submit" value="Bestellung abschicken"/>
+        
     </form>
 </aside>
 EOD;

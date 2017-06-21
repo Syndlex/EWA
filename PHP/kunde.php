@@ -44,6 +44,8 @@ class Kunde extends Page
      *
      * @return none
      */
+
+
     protected function __construct()
     {
         parent::__construct();
@@ -70,6 +72,26 @@ class Kunde extends Page
      */
     protected function getViewData()
     {
+
+
+        $Vorname = htmlspecialchars($_GET["Vorname"]);
+        $Nachname = htmlspecialchars($_GET["Nachname"]);
+        $Anschrift = htmlspecialchars($_GET["Anschrift"]);
+        $Telefonnummer= htmlspecialchars($_GET["Telefonnummer"]);
+        $EMail= htmlspecialchars($_GET["E-Mail"]);
+
+
+        $query = "insert into Kunde (Vorname,Name,Anschrift,Telefonnummer,Mail)
+VALUES ('$Vorname','$Nachname','$Anschrift','$Telefonnummer','$EMail')";
+
+        $this->_database->query($query);
+        $this->_database->commit();
+
+
+
+
+
+
 
         // to do: fetch data for this view from the database
     }
