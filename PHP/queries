@@ -1,0 +1,19 @@
+select * FROM Kunde;
+insert into Kunde (Vorname,Name,Anschrift,Telefonnummer,Mail)
+VALUES ('Deine','Mutter','Wohnt','Gewicht','Mail');
+select * FROM Pizza;
+insert into Pizza (Name, Preis) VALUES ('Pizza Prosciutto','4.00€');
+insert into Pizza (Name, Preis) VALUES ('Pizza Salami','4.30€');
+insert into Pizza (Name, Preis) VALUES ('Pizza Margherita','3.50€');
+insert into Pizza (Name, Preis) VALUES ('Pizza Hawaii','5.50€');
+insert into Pizza (Name, Preis) VALUES ('Pizza vier Jahreszeiten','6.50€');
+insert into Pizza (Name, Preis) VALUES ('Pizza mit allem','10.50€');
+insert into Pizza (Name, Preis) VALUES ('Pizza gerollt','11.50€');
+
+
+/*"Pizza Prosciutto, 4.00€"
+, "Pizza Salami, 4.30€"
+, "Pizza mit allem, 4.50€"
+, "Pizza ohne allem, 4.50€"
+, "Pizza gerollt, 4.50€"
+, "Pizza Salat, 4.50€"];*/
