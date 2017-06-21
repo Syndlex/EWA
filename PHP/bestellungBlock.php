@@ -36,6 +36,7 @@ class bestellungBlock        // to do: change name of class
      * accessed by all operations of the class.
      */
     protected $_database = null;
+    protected $_pizzaRecordset=null;
 
 
 
@@ -68,11 +69,15 @@ class bestellungBlock        // to do: change name of class
      */
     protected function getViewData()
     {
-
-
-       // $this->_liste=$pizzaListe->fetch_array() as list;
-
-        // to do: fetch data for this view from the database
+        try{
+            $query = "Select * FROM Pizza";
+            $result= $this->_database->query($query);
+            $this->_pizzaRecordset=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            mysqli_free_result($result);
+        }
+        catch (Exception $except){
+            echo "SQL Query failed: " . $except->getMessage();
+        }
     }
 
     /**
@@ -86,6 +91,7 @@ class bestellungBlock        // to do: change name of class
      */
     public function generateView()
     {
+
         $this->getViewData();
         echo <<< EOD
 <article class="MainBody">
@@ -95,16 +101,32 @@ class bestellungBlock        // to do: change name of class
             <th></th>
             <th>Artikel</th>
             <th>Preis</th>
-        </tr>        
+        </tr>    
+
 EOD;
 
-        $query = "Select * FROM Pizza";
-        $pizzaListe= $this->_database->query($query);
-       while($pizzaListe= $pizzaListe->fetch_assoc())
-       {
+        try{
+            $i=0;
+            foreach($this->_pizzaRecordset as $pizza) {
+                $name = $pizza['Name'];
+                $price = $pizza['Preis'];
+                echo <<<EOT
+                <tr id="$i" onclick="clickOnPizza($i)">
+                <td><img src="../Bilder/pizza_android.svg" </td>
+                <td>$name</td>
+                <td>$price €</td>
+EOT;
+                $i++;
+            }
+            unset($this->_pizzaRecordset);
+        }catch (Exception $except){
+            echo "Load Pizza failed: ".$except->getMessage();
+        }
 
-       }
         echo "</table></article>";
+
+
+
 
         /*if ($id) {
             $id = "id=\"$id\"";

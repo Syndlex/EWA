@@ -1,6 +1,3 @@
-/**
- * Created by Autz on 22.05.17.
- */
 function clickOnPizza(number) {
     "use strict";
     var pizzaElement = document.getElementById(number);
@@ -52,45 +49,8 @@ function clickOnPizza(number) {
 
 }
 
-var pizzaListe = [
-    "Pizza Prosciutto, 4.00€"
-    , "Pizza Salami, 4.30€"
-    , "Pizza mit allem, 4.50€"
-    , "Pizza ohne allem, 4.50€"
-    , "Pizza gerollt, 4.50€"
-    , "Pizza Salat, 4.50€"];
-
 function Init() {
     "use strict";
-
-    pizzaListe.forEach(function (value, i) {
-        var split = value.split(',', 2);
-        var elementById = document.getElementById("BestellListe");
-        var tr = document.createElement("tr");
-
-        var tdPic = document.createElement("td");
-        var newPic = document.createElement("img");
-        newPic.setAttribute("src", "../Bilder/pizza_android.svg");
-        tdPic.appendChild(newPic);
-
-        var tdTitel = document.createElement("td");
-        var newChild = document.createTextNode(split[0]);
-        tdTitel.appendChild(newChild);
-
-        var tdPreis = document.createElement("td");
-        var newPreis = document.createTextNode(split[1]);
-        tdPreis.appendChild(newPreis);
-
-
-        tr.setAttribute("id", i);
-        var value2 = "clickOnPizza(" + i + ")";
-        tr.setAttribute("onclick", value2);
-        tr.appendChild(tdPic);
-        tr.appendChild(tdTitel);
-        tr.appendChild(tdPreis);
-        elementById.appendChild(tr);
-
-    });
     calcTotalPrice();
 
 }
@@ -123,7 +83,7 @@ function clickOnWarenkorb(elementById) {
 
 function calcTotalPrice() {
     var warenkorb = document.getElementById("WarenKorb");
-    var gesammtpreis=0;
+    var gesammtpreis = 0;
 
 
     for (var i = 1, row; row = warenkorb.rows[i]; i++) {
@@ -133,21 +93,21 @@ function calcTotalPrice() {
 
         var preisData = row.children[2];
         var preisNode = preisData.textContent;
-        var preisString = preisNode.substr(0,preisNode.length -1);
+        var preisString = preisNode.substr(0, preisNode.length - 1);
         var preis = parseFloat(preisString).toFixed(2);
         console.log(preis);
 
-        var pizzaPreis = anzahl*preis;
+        var pizzaPreis = anzahl * preis;
 
-        gesammtpreis=gesammtpreis+pizzaPreis;
+        gesammtpreis = gesammtpreis + pizzaPreis;
 
 
     }
     gesammtpreis = (gesammtpreis).toFixed(2);
     var spanner = document.getElementById("spanner");
-    spanner.textContent = gesammtpreis+ "€";
+    spanner.textContent = gesammtpreis + "€";
     var endpreis = document.getElementById("Endpreis");
-    endpreis.setAttribute("value",gesammtpreis+"€");
+    endpreis.setAttribute("value", gesammtpreis + "€");
 
 
 }

@@ -21,7 +21,7 @@ abstract class Page
      */
     protected function __construct()
     {
-        $this->_database = new mysqli("localhost","root","","Pizza",80);/* to do: create instance of class MySQLi */;
+        $this->_database = new mysqli("localhost","root","","Pizza",3306);/* to do: create instance of class MySQLi */;
     }
 
     /**

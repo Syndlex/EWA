@@ -106,7 +106,7 @@ class warenkorbBlock        // to do: change name of class
             </table>
             <br>
             <p>Gesamtpreis: <span id="spanner" > </span></p>
-            <input type ="hidden" id="Endpreis" name="Gesamtpreis" value="0.00"/>
+            <input type ="hidden" id="Endpreis" name="Gesamtpreis" value="0.00 "/>
             
         </article>
         <br>
