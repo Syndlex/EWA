@@ -9,6 +9,7 @@ insert into Pizza (Name, Preis) VALUES ('Pizza Hawaii','5.50€');
 insert into Pizza (Name, Preis) VALUES ('Pizza vier Jahreszeiten','6.50€');
 insert into Pizza (Name, Preis) VALUES ('Pizza mit allem','10.50€');
 insert into Pizza (Name, Preis) VALUES ('Pizza gerollt','11.50€');
+insert into Pizza (Name, Preis) VALUES ('Pizza Knoblauch','11.50');
 
 
 /*"Pizza Prosciutto, 4.00€"

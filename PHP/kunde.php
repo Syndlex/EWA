@@ -1,4 +1,4 @@
-<?php	// UTF-8 marker äöüÄÖÜß€
+<?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class PageTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
@@ -29,10 +29,11 @@ include "warenkorbBlock.php";
  * to be replaced by the name of the specific HTML page e.g. baker.
  * The order of methods might correspond to the order of thinking
  * during implementation.
-
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
+
+
 class Kunde extends Page
 {
     // to do: declare reference variables for members
@@ -71,6 +72,22 @@ class Kunde extends Page
      *
      * @return none
      */
+
+    protected function insertPizza($pizzaName, $pizzaID, $currentSession){
+        $pizzaQuery = "insert into pizzabestellung(BestellungID, PizzaID, Status) VALUES ('$currentSession'";
+        if (isset($_GET[$pizzaName]) && !empty($_GET[$pizzaName]))
+        {
+            $var = (int)$_GET[$pizzaName];
+            for ($k = 1; $k <= $var; $k++) {
+                $query = $pizzaQuery . ",$pizzaID,0)";
+                $this->_database->query($query);
+
+            }
+
+
+        }
+
+    }
     protected function getViewData()
     {
 
@@ -78,57 +95,24 @@ class Kunde extends Page
         $Vorname = htmlspecialchars($_GET["Vorname"]);
         $Nachname = htmlspecialchars($_GET["Nachname"]);
         $Anschrift = htmlspecialchars($_GET["Anschrift"]);
-        $Telefonnummer= htmlspecialchars($_GET["Telefonnummer"]);
-        $Mail= htmlspecialchars($_GET["E-Mail"]);
+        $Telefonnummer = htmlspecialchars($_GET["Telefonnummer"]);
+        $Mail = htmlspecialchars($_GET["E-Mail"]);
+        $Endpreis = htmlspecialchars($_GET["Gesamtpreis"]);
 
-
-        $hawaii = null;
-
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
-        {
-            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
-        }
-
-
-
-
-        echo $hawaii;
-
-        $query = "insert into Kunde (Vorname,Name,Anschrift,Telefonnummer,Mail)
-                  VALUES ('$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail')";
-        $this->_database->query($query);
+        $currentSession = $_SESSION = session_create_id();
+        $bestellungQuery = "insert into bestellung (BestellungID,Vorname,Nachname,Anschrift,Telefonnummer,Mail,Endpreis)
+                  VALUES ('$currentSession','$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail','$Endpreis')";
+        $this->_database->query($bestellungQuery);
         $this->_database->commit();
 
-
-
+        $this->insertPizza("PizzaProsciutto",1,$currentSession);
+        $this->insertPizza("PizzaSalami",2,$currentSession);
+        $this->insertPizza("PizzaMargherita",3,$currentSession);
+        $this->insertPizza("PizzaHawaii",4,$currentSession);
+        $this->insertPizza("PizzavierJahreszeiten",5,$currentSession);
+        $this->insertPizza("Pizzamitallem",6,$currentSession);
+        $this->insertPizza("Pizzagerollt",7,$currentSession);
+        $this->insertPizza("Pizzagerollt",8,$currentSession);
 
 
 
@@ -150,7 +134,7 @@ class Kunde extends Page
         $this->getViewData();
         $this->generatePageHeader('Kunde');
         $lieferstand = new lieferstandBlock();
-        $lieferstand ->generateView();
+        $lieferstand->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
         $this->generatePageFooter();
@@ -189,8 +173,7 @@ class Kunde extends Page
             $page = new Kunde();
             $page->processReceivedData();
             $page->generateView();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");
             echo $e->getMessage();
         }
