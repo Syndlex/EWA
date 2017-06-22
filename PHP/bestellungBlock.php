@@ -110,11 +110,13 @@ EOD;
             foreach($this->_pizzaRecordset as $pizza) {
                 $name = $pizza['Name'];
                 $price = $pizza['Preis'];
+                $p = (string)$price;
+                $p.='€' ;
                 echo <<<EOT
                 <tr id="$i" onclick="clickOnPizza($i)">
                 <td><img src="../Bilder/pizza_android.svg" </td>
                 <td>$name</td>
-                <td>$price €</td>
+                <td>$p</td>
 EOT;
                 $i++;
             }

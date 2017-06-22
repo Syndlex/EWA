@@ -42,6 +42,7 @@ function clickOnPizza(number) {
         formText.setAttribute("value", bestellMenge);
 
         var pizza = newChild.children[1].textContent;
+        pizza = pizza.replace(/ /g,'');
         formText.setAttribute("name", pizza);
 
     }

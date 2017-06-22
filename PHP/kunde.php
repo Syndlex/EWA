@@ -82,6 +82,46 @@ class Kunde extends Page
         $Mail= htmlspecialchars($_GET["E-Mail"]);
 
 
+        $hawaii = null;
+
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+        if ( isset( $_GET["PizzaHawaii"] ) && !empty( $_GET["PizzaHawaii"] ) )
+        {
+            $hawaii = htmlspecialchars($_GET["PizzaHawaii"]);
+        }
+
+
+
+
+        echo $hawaii;
+
         $query = "insert into Kunde (Vorname,Name,Anschrift,Telefonnummer,Mail)
                   VALUES ('$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail')";
         $this->_database->query($query);

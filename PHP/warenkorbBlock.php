@@ -48,10 +48,9 @@ class warenkorbBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct($database) //übergabeparameter $database
+    public function __construct(mysqli $database)
     {
-        $this->_database = $database; //datenbank für warenkorb eintragen
-        // to do: instantiate members representing substructures/blocks
+        $this->_database = $database;
     }
 
     /**
@@ -74,12 +73,12 @@ class warenkorbBlock        // to do: change name of class
      *
      * @return none
      */
-    public function generateView() //$id
+    public function generateView()
     {
         $this->getViewData();
         echo <<<EOD
         <aside class="RightBody">
-    <form action="Kunde.php" method="get" id="form1"> 
+    <form action="kunde.php" method="get" id="form1"> 
     <section>
             <h2>Lieferinformation</h2>
             <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"
@@ -116,13 +115,7 @@ class warenkorbBlock        // to do: change name of class
     </form>
 </aside>
 EOD;
-        //
-        /* if ($id) {
-             $id = "id=\"$id\"";
-         }
-         echo "<div $id>\n";
-         // to do: call generateView() for all members
-         echo "</div>\n";*/
+
     }
 
     /**
