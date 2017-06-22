@@ -1,4 +1,4 @@
-<?php	// UTF-8 marker äöüÄÖÜß€
+<?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class BlockTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
@@ -22,11 +22,9 @@
  * of top level classes.
  * The order of methods might correspond to the order of thinking
  * during implementation.
-
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
-
 class fertigePizzenBlock       // to do: change name of class
 {
     // --- ATTRIBUTES ---
@@ -36,6 +34,8 @@ class fertigePizzenBlock       // to do: change name of class
      * accessed by all operations of the class.
      */
     protected $_database = null;
+    private $_bestellungsRecordset;
+    private $_pizzaRecordset;
 
     // to do: declare reference variables for members
     // representing substructures/blocks
@@ -50,9 +50,9 @@ class fertigePizzenBlock       // to do: change name of class
      *
      * @return none
      */
-    public function __construct()//$database
+    public function __construct(mysqli $database)//$database
     {
-        $this->_database = null; //$database
+        $this->_database = $database; //$database
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -65,6 +65,7 @@ class fertigePizzenBlock       // to do: change name of class
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
+
     }
 
     /**
@@ -79,7 +80,7 @@ class fertigePizzenBlock       // to do: change name of class
     public function generateView()//$id = ""
     {
         $this->getViewData();
-        echo  <<< EOD
+        echo <<< EOD
 <section class="MainBody">
     <h1>Fertige Pizzen</h1>
     <table>
@@ -91,60 +92,48 @@ class fertigePizzenBlock       // to do: change name of class
             <th>Bestellung</th>
             <th>Endpreis</th>
 
-        </tr>
-        <tr>
-            <td>Fritz Mayer</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
-            <td>26,50€</td>
-        </tr>
-        <tr>
-            <td>Hans Müller</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
-            <td>26,50€</td>
-        </tr>
-        <tr>
-            <td>Gertrude Kaztea</td>
-            <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-            <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            <td>Pizza Tonno <br/>Pizza Salami <br/>Pizza Rukola</td>
-            <td>26,50€</td>
-        </tr>
-
-    </table>
-</section>
+        </tr>   
 EOD;
+
+        echo "</table></section>";
+
         /*if ($id) {
-            $id = "id=\"$id\"";
-        }
-        echo "<div $id>\n";
-        // to do: call generateView() for all members
+        <tr>
+    <td>Fritz Mayer</td>
+    <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
+    <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
+    <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
+    <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
+    <td>26,50€</td>
+    </tr>
         echo "</div>\n";*/
     }
 
-    /**
-     * Processes the data that comes via GET or POST i.e. CGI.
-     * If this block is supposed to do something with submitted
-     * data do it here.
-     * If the block contains other blocks, delegate processing of the
-     * respective subsets of data to them.
-     *
-     * @return none
-     */
+    private function generateTable()
+    {
+        try {
+            $currentSession = $_SESSION["Kunde"];
+
+            $query = "SELECT  PizzaID, Position, Status FROM pizzabestellung WHERE Status BETWEEN 0 AND 2";
+
+
+            $result = $this->_database->query($query);
+            $bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+            mysqli_free_result($result);
+
+            echo "<tr>";
+            echo "</tr>";
+        } catch (Exception $except) {
+            echo "SQL Query failed: " . $except->getMessage();
+        }
+
+    }
+
+
     public function processReceivedData()
     {
         // to do: call processData() for all members
     }
 }
-// Zend standard does not like closing php-tag!
-// PHP doesn't require the closing tag (it is assumed when the file ends).
-// Not specifying the closing ? >  helps to prevent accidents
-// like additional whitespace which will cause session
-// initialization to fail ("headers already sent").
-//? >

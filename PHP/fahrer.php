@@ -88,7 +88,7 @@ class Fahrer extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Fahrer', "RadioNotify.js");
-        $lieferstand = new fertigePizzenBlock();
+        $lieferstand = new fertigePizzenBlock($this->_database);
         $lieferstand->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
