@@ -70,7 +70,7 @@ class bestellungBlock        // to do: change name of class
     protected function getViewData()
     {
         try{
-            $query = "Select * FROM Pizza";
+            $query = "Select * FROM pizza";
             $result= $this->_database->query($query);
             $this->_pizzaRecordset=mysqli_fetch_all($result,MYSQLI_ASSOC);
             mysqli_free_result($result);

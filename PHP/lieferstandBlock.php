@@ -1,4 +1,4 @@
-<?php	// UTF-8 marker äöüÄÖÜß€
+<?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class BlockTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
@@ -22,11 +22,9 @@
  * of top level classes.
  * The order of methods might correspond to the order of thinking
  * during implementation.
-
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
-
 class lieferstandBlock        // to do: change name of class
 {
     // --- ATTRIBUTES ---
@@ -36,6 +34,8 @@ class lieferstandBlock        // to do: change name of class
      * accessed by all operations of the class.
      */
     protected $_database = null;
+    private $_bestellungsRecordset;
+    private $_pizzaRecordset;
 
     // to do: declare reference variables for members
     // representing substructures/blocks
@@ -50,9 +50,9 @@ class lieferstandBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct()
+    public function __construct(mysqli $database)
     {
-        $this->_database = null; //$database
+        $this->_database = $database; //$database
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -65,6 +65,24 @@ class lieferstandBlock        // to do: change name of class
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
+        try {
+            $currentSession = $_SESSION["Kunde"];
+
+            $query = "SELECT PizzaID, Position, Status FROM pizzabestellung WHERE BestellungID = '$currentSession'";
+
+            $result = $this->_database->query($query);
+            $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+            $query = "SELECT Name  FROM pizza ORDER BY PizzaID ASC ";
+            $pizzaResult = $this->_database->query($query);
+            $this->_pizzaRecordset = mysqli_fetch_all($pizzaResult, MYSQLI_ASSOC);
+
+            mysqli_free_result($result);
+            mysqli_free_result($pizzaResult);
+
+        } catch (Exception $except) {
+            echo "SQL Query failed: " . $except->getMessage();
+        }
     }
 
     /**
@@ -79,6 +97,7 @@ class lieferstandBlock        // to do: change name of class
     public function generateView() //$id = ""
     {
         $this->getViewData();
+
         echo <<< EOD
 <section class="MainBody">
     <h1>Lieferstand</h1>
@@ -88,28 +107,22 @@ class lieferstandBlock        // to do: change name of class
             <th>im Ofen</th>
             <th>fertig</th>
             <th>unterwegs</th>
-        </tr>
-        <tr>
-            <td>Pizza Margherita</td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-        </tr>
-        <tr>
-            <td>Pizza Funghi</td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-        </tr>
-        <tr>
-            <td>Pizza Salami</td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled"/></td>
-            <td><input type="radio" disabled="disabled" checked/></td>
-        </tr>
-    </table>
-</section>
+        </tr>   
 EOD;
+        foreach ($this->_bestellungsRecordset as $item) {
+
+            $pizzaID = (int)$item["Pizza"];
+            echo "<tr><td>";
+            echo $this->_pizzaRecordset[$pizzaID]["Name"];
+            echo "</td>";
+
+            $this->echoStatus($item, 1);
+            $this->echoStatus($item, 2);
+            $this->echoStatus($item, 3);
+
+            echo "</table></section>";
+        }
+
         /*if ($id) {
             $id = "id=\"$id\"";
         }
@@ -130,6 +143,23 @@ EOD;
     public function processReceivedData()
     {
         // to do: call processData() for all members
+    }
+
+    /**
+     * @param $item
+     * @param $i
+     */
+    protected function echoStatus($item, $i)
+    {
+        echo "<td><input type='radio' disabled='disabled'";
+        if ($item["Status"] > $i) {
+            echo "checked";
+
+        }
+        echo "/>";
+        echo $item["Status"];
+        echo "</td>";
+
     }
 }
 // Zend standard does not like closing php-tag!

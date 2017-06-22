@@ -32,8 +32,6 @@ include "warenkorbBlock.php";
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
-
-
 class Kunde extends Page
 {
     // to do: declare reference variables for members
@@ -73,10 +71,10 @@ class Kunde extends Page
      * @return none
      */
 
-    protected function insertPizza($pizzaName, $pizzaID, $currentSession){
+    protected function insertPizzaIntoDB($pizzaName, $pizzaID, $currentSession)
+    {
         $pizzaQuery = "insert into pizzabestellung(BestellungID, PizzaID, Status) VALUES ('$currentSession'";
-        if (isset($_GET[$pizzaName]) && !empty($_GET[$pizzaName]))
-        {
+        if (isset($_GET[$pizzaName]) && !empty($_GET[$pizzaName])) {
             $var = (int)$_GET[$pizzaName];
             for ($k = 1; $k <= $var; $k++) {
                 $query = $pizzaQuery . ",$pizzaID,0)";
@@ -88,33 +86,9 @@ class Kunde extends Page
         }
 
     }
+
     protected function getViewData()
     {
-
-
-        $Vorname = htmlspecialchars($_GET["Vorname"]);
-        $Nachname = htmlspecialchars($_GET["Nachname"]);
-        $Anschrift = htmlspecialchars($_GET["Anschrift"]);
-        $Telefonnummer = htmlspecialchars($_GET["Telefonnummer"]);
-        $Mail = htmlspecialchars($_GET["E-Mail"]);
-        $Endpreis = htmlspecialchars($_GET["Gesamtpreis"]);
-
-        $currentSession = $_SESSION = session_create_id();
-        $bestellungQuery = "insert into bestellung (BestellungID,Vorname,Nachname,Anschrift,Telefonnummer,Mail,Endpreis)
-                  VALUES ('$currentSession','$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail','$Endpreis')";
-        $this->_database->query($bestellungQuery);
-        $this->_database->commit();
-
-        $this->insertPizza("PizzaProsciutto",1,$currentSession);
-        $this->insertPizza("PizzaSalami",2,$currentSession);
-        $this->insertPizza("PizzaMargherita",3,$currentSession);
-        $this->insertPizza("PizzaHawaii",4,$currentSession);
-        $this->insertPizza("PizzavierJahreszeiten",5,$currentSession);
-        $this->insertPizza("Pizzamitallem",6,$currentSession);
-        $this->insertPizza("Pizzagerollt",7,$currentSession);
-        $this->insertPizza("Pizzagerollt",8,$currentSession);
-
-
 
 
         // to do: fetch data for this view from the database
@@ -133,7 +107,7 @@ class Kunde extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Kunde');
-        $lieferstand = new lieferstandBlock();
+        $lieferstand = new lieferstandBlock($this->_database);
         $lieferstand->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
@@ -152,6 +126,10 @@ class Kunde extends Page
     protected function processReceivedData()
     {
         parent::processReceivedData();
+
+        if (isset($_GET) && !empty($_GET["Gesamtpreis"])) {
+            $this->LoadSql();
+        }
         // to do: call processReceivedData() for all members
     }
 
@@ -177,6 +155,34 @@ class Kunde extends Page
             header("Content-type: text/plain; charset=UTF-8");
             echo $e->getMessage();
         }
+    }
+
+    protected function LoadSql()
+    {
+        $Vorname = htmlspecialchars($_GET["Vorname"]);
+        $Nachname = htmlspecialchars($_GET["Nachname"]);
+        $Anschrift = htmlspecialchars($_GET["Anschrift"]);
+        $Telefonnummer = htmlspecialchars($_GET["Telefonnummer"]);
+        $Mail = htmlspecialchars($_GET["E-Mail"]);
+        $Endpreis = htmlspecialchars($_GET["Gesamtpreis"]);
+
+
+        session_start();
+        $currentSession = $_SESSION["Kunde"] = time();
+
+        $bestellungQuery = "insert into bestellung (BestellungID,Vorname,Nachname,Anschrift,Telefonnummer,Mail,Endpreis)
+                  VALUES ('$currentSession','$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail','$Endpreis')";
+        $this->_database->query($bestellungQuery);
+        $this->_database->commit();
+
+        $this->insertPizzaIntoDB("PizzaProsciutto", 1, $currentSession);
+        $this->insertPizzaIntoDB("PizzaSalami", 2, $currentSession);
+        $this->insertPizzaIntoDB("PizzaMargherita", 3, $currentSession);
+        $this->insertPizzaIntoDB("PizzaHawaii", 4, $currentSession);
+        $this->insertPizzaIntoDB("PizzavierJahreszeiten", 5, $currentSession);
+        $this->insertPizzaIntoDB("Pizzamitallem", 6, $currentSession);
+        $this->insertPizzaIntoDB("Pizzagerollt", 7, $currentSession);
+        $this->insertPizzaIntoDB("Pizzagerollt", 8, $currentSession);
     }
 }
 
