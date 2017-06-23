@@ -126,25 +126,14 @@ class Kunde extends Page
     protected function processReceivedData()
     {
         parent::processReceivedData();
-
-        if (isset($_GET) && !empty($_GET["Gesamtpreis"])) {
-            $this->LoadSql();
-        }
-        // to do: call processReceivedData() for all members
+        if(!isset($_SESSION)){
+            if (isset($_GET) && !empty($_GET["Gesamtpreis"])) {
+                $this->LoadSql();
+            }
+        }        // to do: call processReceivedData() for all members
     }
 
-    /**
-     * This main-function has the only purpose to create an instance
-     * of the class and to get all the things going.
-     * I.e. the operations of the class are called to produce
-     * the output of the HTML-file.
-     * The name "main" is no keyword for php. It is just used to
-     * indicate that function as the central starting point.
-     * To make it simpler this is a static function. That is you can simply
-     * call it without first creating an instance of the class.
-     *
-     * @return none
-     */
+
     public static function main()
     {
         try {

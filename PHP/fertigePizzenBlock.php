@@ -89,12 +89,9 @@ class fertigePizzenBlock       // to do: change name of class
             <th>fertig</th>
             <th>unterwegs</th>
             <th>geliefert</th>
-            <th>Bestellung</th>
-            <th>Endpreis</th>
-
         </tr>   
 EOD;
-
+        $this->generateTable();
         echo "</table></section>";
 
         /*if ($id) {
@@ -103,8 +100,6 @@ EOD;
     <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
     <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
     <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-    <td>Pizza Tonno <br/>Pizza Margherita <br/>Pizza Funghi</td>
-    <td>26,50€</td>
     </tr>
         echo "</div>\n";*/
     }
@@ -112,11 +107,8 @@ EOD;
     private function generateTable()
     {
         try {
-            $currentSession = $_SESSION["Kunde"];
 
-            $query = "SELECT  PizzaID, Position, Status FROM pizzabestellung WHERE Status BETWEEN 0 AND 2";
-
-
+            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 2 AND 4 ";
             $result = $this->_database->query($query);
             $bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -125,6 +117,18 @@ EOD;
 
             echo "<tr>";
             echo "</tr>";
+
+
+            foreach ($bestellungsRecordset as $item) {
+                echo "<tr>";
+                echo "<td>" . $item["Vorname"] . '  ' . $item["Nachname"] . "</td>";
+
+                $this->printTd($item, 2);
+                $this->printTd($item, 3);
+                $this->printTd($item, 4);
+
+                echo "</tr>";
+            }
         } catch (Exception $except) {
             echo "SQL Query failed: " . $except->getMessage();
         }
@@ -135,5 +139,19 @@ EOD;
     public function processReceivedData()
     {
         // to do: call processData() for all members
+    }
+
+    /**
+     * @param $item
+     * @param $i
+     */
+    private function printTd($item, $i)
+    {
+        $hass = $i - 2;
+        echo "<td><input type='radio' onclick='sendStatus(this)' value='$hass'";
+        if ($item["Status"] == $i) {
+            echo "checked";
+        }
+        echo "/>";
     }
 }

@@ -66,6 +66,7 @@ class lieferstandBlock        // to do: change name of class
     {
         // to do: fetch data for this view from the database
         try {
+
             $currentSession = $_SESSION["Kunde"];
 
             $query = "SELECT PizzaID, Position, Status FROM pizzabestellung WHERE BestellungID = '$currentSession'";
