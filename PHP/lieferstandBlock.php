@@ -92,18 +92,22 @@ class lieferstandBlock        // to do: change name of class
             <th>unterwegs</th>
         </tr>   
 EOD;
-        foreach ($this->_bestellungsRecordset as $item) {
+        if(isset($this->_bestellungsRecordset)){
 
-            echo "<tr><td>";
-            echo $item["Name"];
-            echo "</td>";
+            foreach ($this->_bestellungsRecordset as $item) {
 
-            $this->echoStatus($item, 1);
-            $this->echoStatus($item, 2);
-            $this->echoStatus($item, 3);
+                echo "<tr><td>";
+                echo $item["Name"];
+                echo "</td>";
+
+                $this->echoStatus($item, 1);
+                $this->echoStatus($item, 2);
+                $this->echoStatus($item, 3);
 
 
+            }
         }
+
         echo "</table></section>";
 
         /*if ($id) {
@@ -135,11 +139,12 @@ EOD;
     protected function echoStatus($item, $i)
     {
         echo "<td><input type='radio' disabled='disabled'";
+
         if ($item["Status"] > $i) {
             echo "checked";
+
         }
         echo "/>";
-        echo $item["Status"];
         echo "</td>";
 
     }

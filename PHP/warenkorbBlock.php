@@ -78,7 +78,7 @@ class warenkorbBlock        // to do: change name of class
         $this->getViewData();
         echo <<<EOD
         <aside class="RightBody">
-    <form action="kunde.php" method="get" id="form1"> 
+    <form action="kunde.php" method="post" id="form1"> 
     <section>
             <h2>Lieferinformation</h2>
             <input type="text" id="kVorname" size="30" maxlength="40" placeholder="Vorname" name="Vorname"

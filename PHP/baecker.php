@@ -18,7 +18,7 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once "Page.php";
-include "bestelltePizzenBlock.php";
+include "baeckerStatusBlock.php";
 
 
 /**
@@ -70,6 +70,7 @@ class Baecker extends Page
      */
     protected function getViewData()
     {
+
         // to do: fetch data for this view from the database
     }
 
@@ -86,7 +87,7 @@ class Baecker extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Bäcker', 'RadioNotify.js');
-        $pizzenBlock = new bestelltePizzenBlock($this->_database);
+        $pizzenBlock = new baeckerStatusBlock($this->_database);
         $pizzenBlock->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page

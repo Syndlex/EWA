@@ -73,17 +73,18 @@ class Kunde extends Page
 
     protected function insertPizzaIntoDB($pizzaName, $pizzaID, $currentSession)
     {
-        $pizzaQuery = "insert into pizzabestellung(BestellungID, PizzaID, Status) VALUES ('$currentSession'";
-        if (isset($_GET[$pizzaName]) && !empty($_GET[$pizzaName])) {
-            $var = (int)$_GET[$pizzaName];
-            for ($k = 1; $k <= $var; $k++) {
-                $query = $pizzaQuery . ",$pizzaID,0)";
-                $this->_database->query($query);
+
+            $pizzaQuery = "insert into pizzabestellung(BestellungID, PizzaID, Status) VALUES ('$currentSession'";
+            if (isset($_POST[$pizzaName]) && !empty($_POST[$pizzaName])) {
+                $var = (int)$_POST[$pizzaName];
+                for ($k = 1; $k <= $var; $k++) {
+                    $query = $pizzaQuery . ",$pizzaID,0)";
+                    $this->_database->query($query);
+
+                }
+
 
             }
-
-
-        }
 
     }
 
@@ -126,8 +127,8 @@ class Kunde extends Page
     protected function processReceivedData()
     {
         parent::processReceivedData();
-        if(!isset($_SESSION)){
-            if (isset($_GET) && !empty($_GET["Gesamtpreis"])) {
+        if(!isset($_SESSION["Kunde"]) ){
+            if (isset($_POST) && !empty($_POST["Gesamtpreis"])) {
                 $this->LoadSql();
             }
         }        // to do: call processReceivedData() for all members
@@ -148,12 +149,12 @@ class Kunde extends Page
 
     protected function LoadSql()
     {
-        $Vorname = htmlspecialchars($_GET["Vorname"]);
-        $Nachname = htmlspecialchars($_GET["Nachname"]);
-        $Anschrift = htmlspecialchars($_GET["Anschrift"]);
-        $Telefonnummer = htmlspecialchars($_GET["Telefonnummer"]);
-        $Mail = htmlspecialchars($_GET["E-Mail"]);
-        $Endpreis = htmlspecialchars($_GET["Gesamtpreis"]);
+        $Vorname = htmlspecialchars($_POST["Vorname"]);
+        $Nachname = htmlspecialchars($_POST["Nachname"]);
+        $Anschrift = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Anschrift"]));
+        $Telefonnummer = htmlspecialchars($_POST["Telefonnummer"]);
+        $Mail = htmlspecialchars($_POST["E-Mail"]);
+        $Endpreis = htmlspecialchars($_POST["Gesamtpreis"]);
 
 
         session_start();

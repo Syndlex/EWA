@@ -25,7 +25,7 @@
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
-class fertigePizzenBlock       // to do: change name of class
+class fahrerStatusBlock       // to do: change name of class
 {
     // --- ATTRIBUTES ---
 
@@ -65,7 +65,23 @@ class fertigePizzenBlock       // to do: change name of class
     {
         // to do: fetch data for this view from the database
 
+        if (isset($_POST) && !empty ($_POST)) {
+
+            $status = htmlspecialchars($_POST["Status"]);
+            $positionID = htmlspecialchars($_POST["ID"]);
+            $query = null;
+            if ($status == 4) {
+                $query = "DELETE FROM pizzabestellung where Position=$positionID";
+
+            }
+            else {
+                $query = "UPDATE pizzabestellung set Status=$status where Position = $positionID";
+            }
+            $this->_database->query($query);
+            $this->_database->commit();
+        }
         $this->loadSql();
+
 
     }
 
@@ -113,7 +129,8 @@ EOD;
 
         foreach ($this->_bestellungsRecordset as $item) {
             echo "<tr>";
-            echo "<td>" . $item["Vorname"] . '  ' . $item["Nachname"] . "</td>";
+            echo "<td>" . $item["Vorname"] . '  ' . $item["Nachname"] . '   '. $item["Anschrift"] . "</td>";
+            echo "<input type='hidden' name='ID' value='" . $item["Position"] . "'>";
 
             $this->printTd($item, 2);
             $this->printTd($item, 3);
@@ -123,11 +140,11 @@ EOD;
         }
     }
 
-    private function printTd($item, $i)
+    private function printTd($item, $status)
     {
-        $hass = $i - 2;
-        echo "<td><input type='radio' onclick='sendStatus(this)' value='$hass'";
-        if ($item["Status"] == $i) {
+        echo "<td><input type='radio' onclick='sendStatus(this)' value='$status'";
+
+        if ($item["Status"] == $status) {
             echo "checked";
         }
         echo "/>";
@@ -142,7 +159,7 @@ EOD;
     {
         try {
 
-            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 2 AND 4 ";
+            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name, pizzabestellung.Position ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 2 AND 4 ";
             $result = $this->_database->query($query);
             $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

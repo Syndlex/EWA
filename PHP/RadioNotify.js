@@ -3,13 +3,12 @@
  */
 function sendStatus(TableElement) {
     var parentNode = TableElement.parentNode.parentNode;
-    var customer = parentNode.childNodes.item(0).textContent;
     var hiddenID = parentNode.childNodes.item(1);
     var status = TableElement.getAttribute("value");
 
-
-
-    post("https://www.fbi.h-da.de/cgi-bin/Echo.pl", customer, status,hiddenID);
+    var url = location.href;
+    var urlFilename = url.substring(url.lastIndexOf('/')+1);
+    post(urlFilename, "Status", status,hiddenID);
 }
 
 function post(path, name, value,hiddenID) {

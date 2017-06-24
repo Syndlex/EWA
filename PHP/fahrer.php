@@ -18,7 +18,7 @@
 
 // to do: change name 'PageTemplate' throughout this file
 require_once './Page.php';
-include "fertigePizzenBlock.php";
+include "fahrerStatusBlock.php";
 /**
  * This is a template for top level classes, which represent
  * a complete web page and which are called directly by the user.
@@ -88,7 +88,7 @@ class Fahrer extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Fahrer', "RadioNotify.js");
-        $lieferstand = new fertigePizzenBlock($this->_database);
+        $lieferstand = new fahrerStatusBlock($this->_database);
         $lieferstand->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
