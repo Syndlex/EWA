@@ -35,7 +35,6 @@ class lieferstandBlock        // to do: change name of class
      */
     protected $_database = null;
     private $_bestellungsRecordset;
-    private $_pizzaRecordset;
 
     // to do: declare reference variables for members
     // representing substructures/blocks
@@ -65,25 +64,8 @@ class lieferstandBlock        // to do: change name of class
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
-        try {
+        $this->loadSql();
 
-            $currentSession = $_SESSION["Kunde"];
-
-            $query = "SELECT PizzaID, Position, Status FROM pizzabestellung WHERE BestellungID = '$currentSession'";
-
-            $result = $this->_database->query($query);
-            $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-            $query = "SELECT Name  FROM pizza ORDER BY PizzaID ASC ";
-            $pizzaResult = $this->_database->query($query);
-            $this->_pizzaRecordset = mysqli_fetch_all($pizzaResult, MYSQLI_ASSOC);
-
-            mysqli_free_result($result);
-            mysqli_free_result($pizzaResult);
-
-        } catch (Exception $except) {
-            echo "SQL Query failed: " . $except->getMessage();
-        }
     }
 
     /**
@@ -112,17 +94,17 @@ class lieferstandBlock        // to do: change name of class
 EOD;
         foreach ($this->_bestellungsRecordset as $item) {
 
-            $pizzaID = (int)$item["Pizza"];
             echo "<tr><td>";
-            echo $this->_pizzaRecordset[$pizzaID]["Name"];
+            echo $item["Name"];
             echo "</td>";
 
             $this->echoStatus($item, 1);
             $this->echoStatus($item, 2);
             $this->echoStatus($item, 3);
 
-            echo "</table></section>";
+
         }
+        echo "</table></section>";
 
         /*if ($id) {
             $id = "id=\"$id\"";
@@ -155,12 +137,31 @@ EOD;
         echo "<td><input type='radio' disabled='disabled'";
         if ($item["Status"] > $i) {
             echo "checked";
-
         }
         echo "/>";
         echo $item["Status"];
         echo "</td>";
 
+    }
+
+    protected function loadSql()
+    {
+        if (isset($_SESSION)) {
+            try {
+
+                $currentSession = $_SESSION["Kunde"];
+
+                $query = "SELECT pizzabestellung.Status, pizza.Name FROM `pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID =  '$currentSession' AND pizza.PizzaID = pizzabestellung.PizzaID ORDER BY pizza.PizzaID ASC";
+
+                $result = $this->_database->query($query);
+                $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                mysqli_free_result($result);
+
+            } catch (Exception $except) {
+                echo "SQL Query failed: " . $except->getMessage();
+            }
+        }
     }
 }
 // Zend standard does not like closing php-tag!

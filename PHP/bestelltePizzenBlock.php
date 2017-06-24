@@ -1,4 +1,4 @@
-<?php	// UTF-8 marker äöüÄÖÜß€
+<?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class BlockTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
@@ -22,11 +22,9 @@
  * of top level classes.
  * The order of methods might correspond to the order of thinking
  * during implementation.
-
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
-
 class bestelltePizzenBlock        // to do: change name of class
 {
     // --- ATTRIBUTES ---
@@ -36,6 +34,7 @@ class bestelltePizzenBlock        // to do: change name of class
      * accessed by all operations of the class.
      */
     protected $_database = null;
+    private $_bestellungsRecordset = null;
 
     // to do: declare reference variables for members
     // representing substructures/blocks
@@ -50,9 +49,9 @@ class bestelltePizzenBlock        // to do: change name of class
      *
      * @return none
      */
-    public function __construct() //$database
+    public function __construct(mysqli $mysqli) //$database
     {
-        $this->_database = null; // =$database
+        $this->_database = $mysqli; // =$database
         // to do: instantiate members representing substructures/blocks
     }
 
@@ -65,6 +64,9 @@ class bestelltePizzenBlock        // to do: change name of class
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
+
+
+        $this->loadSql();
     }
 
     /**
@@ -76,7 +78,8 @@ class bestelltePizzenBlock        // to do: change name of class
      *
      * @return none
      */
-    public function generateView() //$id ""
+    public
+    function generateView() //$id ""
     {
         $this->getViewData();
         echo <<<EOT
@@ -91,36 +94,46 @@ class bestelltePizzenBlock        // to do: change name of class
                 <th>fertig</th>
 
             </tr>
-            <tr>
-                <td>Pizza Margherita</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-            <tr>
-                <td>Pizza Funghi</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-            <tr>
-                <td>Pizza Salami</td>
-                <td><input type="radio" onclick="sendStatus(this)" value="0"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="1"></td>
-                <td><input type="radio" onclick="sendStatus(this)" value="2"></td>
-            </tr>
-
-
-        </table>
-    </form>
-</section>
 EOT;
+        $this->generateTable();
+        echo "</table></form></section>";
         /*if ($id) {
             $id = "id=\"$id\"";
         }
         echo "<div $id>\n";
         // to do: call generateView() for all members
         echo "</div>\n";*/
+    }
+
+    private
+    function generateTable()
+    {
+
+        echo "<tr>";
+        echo "</tr>";
+
+
+        foreach ($this->_bestellungsRecordset as $item) {
+            echo "<tr>";
+            echo "<td>" . $item["Name"] . "</td>";
+
+            $this->printTd($item, 2);
+            $this->printTd($item, 3);
+            $this->printTd($item, 4);
+
+            echo "</tr>";
+
+        }
+    }
+
+    private function printTd($item, $i)
+    {
+        $hass = $i - 2;
+        echo "<td><input type='radio' onclick='sendStatus(this)' value='$hass'";
+        if ($item["Status"] == $i) {
+            echo "checked";
+        }
+        echo "/>";
     }
 
     /**
@@ -132,9 +145,26 @@ EOT;
      *
      * @return none
      */
-    public function processReceivedData()
+    public
+    function processReceivedData()
     {
         // to do: call processData() for all members
+    }
+
+    protected function loadSql()
+    {
+        try {
+
+            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 0 AND 2 ";
+            $result = $this->_database->query($query);
+            $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+            mysqli_free_result($result);
+
+        } catch (Exception $except) {
+            echo "SQL Query failed: " . $except->getMessage();
+        }
     }
 }
 // Zend standard does not like closing php-tag!

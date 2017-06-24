@@ -35,7 +35,6 @@ class fertigePizzenBlock       // to do: change name of class
      */
     protected $_database = null;
     private $_bestellungsRecordset;
-    private $_pizzaRecordset;
 
     // to do: declare reference variables for members
     // representing substructures/blocks
@@ -65,6 +64,8 @@ class fertigePizzenBlock       // to do: change name of class
     protected function getViewData()
     {
         // to do: fetch data for this view from the database
+
+        $this->loadSql();
 
     }
 
@@ -106,45 +107,22 @@ EOD;
 
     private function generateTable()
     {
-        try {
-
-            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 2 AND 4 ";
-            $result = $this->_database->query($query);
-            $bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        echo "<tr>";
+        echo "</tr>";
 
 
-            mysqli_free_result($result);
-
+        foreach ($this->_bestellungsRecordset as $item) {
             echo "<tr>";
+            echo "<td>" . $item["Vorname"] . '  ' . $item["Nachname"] . "</td>";
+
+            $this->printTd($item, 2);
+            $this->printTd($item, 3);
+            $this->printTd($item, 4);
+
             echo "</tr>";
-
-
-            foreach ($bestellungsRecordset as $item) {
-                echo "<tr>";
-                echo "<td>" . $item["Vorname"] . '  ' . $item["Nachname"] . "</td>";
-
-                $this->printTd($item, 2);
-                $this->printTd($item, 3);
-                $this->printTd($item, 4);
-
-                echo "</tr>";
-            }
-        } catch (Exception $except) {
-            echo "SQL Query failed: " . $except->getMessage();
         }
-
     }
 
-
-    public function processReceivedData()
-    {
-        // to do: call processData() for all members
-    }
-
-    /**
-     * @param $item
-     * @param $i
-     */
     private function printTd($item, $i)
     {
         $hass = $i - 2;
@@ -154,4 +132,30 @@ EOD;
         }
         echo "/>";
     }
+
+    public function processReceivedData()
+    {
+        // to do: call processData() for all members
+    }
+
+    protected function loadSql()
+    {
+        try {
+
+            $query = "SELECT bestellung.Vorname,bestellung.Nachname, bestellung.Anschrift, pizza.Name ,pizzabestellung.Status FROM `bestellung`,`pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID = bestellung.BestellungID AND pizzabestellung.PizzaID = pizza.PizzaID AND pizzabestellung.Status BETWEEN 2 AND 4 ";
+            $result = $this->_database->query($query);
+            $this->_bestellungsRecordset = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+            mysqli_free_result($result);
+        } catch (Exception $except) {
+            echo "SQL Query failed: " . $except->getMessage();
+        }
+    }
+
+    /**
+     * @param $item
+     * @param $i
+     */
+
 }

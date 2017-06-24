@@ -1,4 +1,4 @@
-<?php	// UTF-8 marker äöüÄÖÜß€
+<?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class PageTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
@@ -29,7 +29,6 @@ include "bestelltePizzenBlock.php";
  * to be replaced by the name of the specific HTML page e.g. baker.
  * The order of methods might correspond to the order of thinking
  * during implementation.
-
  * @author   Bernhard Kreling, <b.kreling@fbi.h-da.de>
  * @author   Ralf Hahn, <ralf.hahn@h-da.de>
  */
@@ -87,7 +86,7 @@ class Baecker extends Page
     {
         $this->getViewData();
         $this->generatePageHeader('Bäcker', 'RadioNotify.js');
-        $pizzenBlock = new bestelltePizzenBlock();
+        $pizzenBlock = new bestelltePizzenBlock($this->_database);
         $pizzenBlock->generateView();
         // to do: call generateView() for all members
         // to do: output view of this page
@@ -127,8 +126,7 @@ class Baecker extends Page
             $page = new Baecker();
             $page->processReceivedData();
             $page->generateView();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             header("Content-type: text/plain; charset=UTF-8");
             echo $e->getMessage();
         }
