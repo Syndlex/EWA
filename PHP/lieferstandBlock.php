@@ -140,7 +140,7 @@ EOD;
     {
         echo "<td><input type='radio' disabled='disabled'";
 
-        if ($item["Status"] > $i) {
+        if ($item["Status"] == $i) {
             echo "checked";
 
         }
@@ -151,10 +151,10 @@ EOD;
 
     protected function loadSql()
     {
-        if (isset($_SESSION)) {
+        if (isset($_COOKIE["Kunde"])) {
             try {
 
-                $currentSession = $_SESSION["Kunde"];
+                $currentSession = $_COOKIE["Kunde"];
 
                 $query = "SELECT pizzabestellung.Status, pizza.Name FROM `pizza`,`pizzabestellung` WHERE pizzabestellung.BestellungID =  '$currentSession' AND pizza.PizzaID = pizzabestellung.PizzaID ORDER BY pizza.PizzaID ASC";
 

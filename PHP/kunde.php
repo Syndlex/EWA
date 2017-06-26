@@ -82,10 +82,7 @@ class Kunde extends Page
                     $this->_database->query($query);
 
                 }
-
-
             }
-
     }
 
     protected function getViewData()
@@ -127,11 +124,11 @@ class Kunde extends Page
     protected function processReceivedData()
     {
         parent::processReceivedData();
-        if(!isset($_SESSION["Kunde"]) ){
+        //if(!isset($_COOKIE) && empty($_COOKIE["Kunde"])){
             if (isset($_POST) && !empty($_POST["Gesamtpreis"])) {
                 $this->LoadSql();
             }
-        }        // to do: call processReceivedData() for all members
+        //}        // to do: call processReceivedData() for all members
     }
 
 
@@ -149,16 +146,17 @@ class Kunde extends Page
 
     protected function LoadSql()
     {
-        $Vorname = htmlspecialchars($_POST["Vorname"]);
-        $Nachname = htmlspecialchars($_POST["Nachname"]);
+        $Vorname = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Vorname"]));
+        $Nachname = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Nachname"]));
         $Anschrift = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Anschrift"]));
-        $Telefonnummer = htmlspecialchars($_POST["Telefonnummer"]);
-        $Mail = htmlspecialchars($_POST["E-Mail"]);
-        $Endpreis = htmlspecialchars($_POST["Gesamtpreis"]);
+        $Telefonnummer = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Telefonnummer"]));
+        $Mail = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["E-Mail"]));
+        $Endpreis = mysqli_real_escape_string($this->_database,htmlspecialchars($_POST["Gesamtpreis"]));
 
 
         session_start();
-        $currentSession = $_SESSION["Kunde"] = time();
+        $currentSession = time();
+        setcookie("Kunde",$currentSession,time()+3600);
 
         $bestellungQuery = "insert into bestellung (BestellungID,Vorname,Nachname,Anschrift,Telefonnummer,Mail,Endpreis)
                   VALUES ('$currentSession','$Vorname','$Nachname','$Anschrift','$Telefonnummer','$Mail','$Endpreis')";

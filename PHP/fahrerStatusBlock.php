@@ -1,4 +1,4 @@
-<?php // UTF-8 marker äöüÄÖÜß€
+ <?php // UTF-8 marker äöüÄÖÜß€
 /**
  * Class BlockTemplate for the exercises of the EWA lecture
  * Demonstrates use of PHP including class and OO.
